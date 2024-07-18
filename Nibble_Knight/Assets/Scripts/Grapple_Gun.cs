@@ -7,44 +7,52 @@ public class Grapple_Gun : MonoBehaviour
     private LineRenderer _lineRender;
     private Vector3 _grabPoint;
     public LayerMask _grappable;
-    public Transform FirePoint, gun;
+    public Transform FirePoint, Cam, player;
     // Start is called before the first frame update
     public float maxDistance = 50f;
     private SpringJoint joint;
 
-    void Awake() {
+    void Start() {
         _lineRender = GetComponent<LineRenderer>();
     }
 
     void update() {
-        if(Input.GetMouseButtonDown()) {
+        DrawRope();
+        Debug.Log("Hellow World");
+        if(Input.GetMouseButtonDown(0)) {
+            Debug.Log("click");
+            Debug.Log(Input.mousePosition);
             startGrapple();
         }
-        else if(Input.GetMouseButtonUp()) {
+        else if(Input.GetMouseButtonUp(0)) {
             stopGrapple();
         }
     }
 
+    void DrawRope() {
+        _lineRender.SetPosition(0, FirePoint.position);
+        _lineRender.SetPosition(1, _grabPoint);
+    }
 
     void startGrapple() {
         RaycastHit hit;
-        if(Physics.Raycast(gun.position, gun.forward, out hit, maxDistance)) {
-            _grabPoint = hit;
+        if (UnityEngine.Physics.Raycast(Cam.position, Cam.forward, out hit, maxDistance)) {
+            _grabPoint = hit.point;
             joint = player.gameObject.AddComponent<SpringJoint>();
             joint.autoConfigureConnectedAnchor = false;
             joint.connectedAnchor = _grabPoint;
 
-            float distance = Vector3.Distance(Transform.position, _grabPoint);
+            float distance = Vector3.Distance(player.position, _grabPoint);
 
-            // distances the grapple is allowed to be at
-            joint.maxDistance = distance*0.8f;
-            joint.minDistance = distance*0.25f;
-            
-            // to fit feel
-            joint.spring = 1.0f;
-            joint.damper = 1.0f;
-            joint.massScale = 4.5f;
 
+            joint.maxDistance = distance * 0.8f;
+            joint.minDistance = distance * 0.25f;
+
+            /**
+            joint.spring = 1f;
+            joint.damper = 1f;
+            joint.massScale = 4.5f
+            /**/
         }
     }
 

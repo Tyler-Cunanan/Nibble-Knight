@@ -5,13 +5,15 @@ using UnityEngine;
 public class Grapple_Gun : MonoBehaviour
 {
     private LineRenderer _lineRender;
-    public LayerMask _grappable;
+    public LayerMask _grappableEnviorment;
+    public LayerMask _grappableObject;
     private SpringJoint joint;
     
     [Header("Objects")]
     public Transform FirePoint;
     public Transform Cam;
     public Transform player;
+    public Rigidbody grappleSource;
     public float maxDistance = 100f;
     private Vector3 _grabPoint;
 
@@ -21,6 +23,7 @@ public class Grapple_Gun : MonoBehaviour
 
     void Update() {
         //Debug.Log("Hello World");
+
         if(Input.GetMouseButtonDown(0)) {
             /**/
             Debug.Log("click");
@@ -52,21 +55,25 @@ public class Grapple_Gun : MonoBehaviour
         Debug.Log("pew");
         //UnityEngine.Physics.Raycast(directHit, out hit, maxDistance, _grappable);
         //Debug.Log(hit.point);
-        if (UnityEngine.Physics.Raycast(directHit, out hit, maxDistance, _grappable)) {
+
+        //add in additional logic if the tag is either layer
+        //envior will link player to ob. the other will link the ob to player
+        if (UnityEngine.Physics.Raycast(directHit, out hit, maxDistance, _grappableEnviorment)) {
             Debug.Log("catch");
             _grabPoint = hit.point;
             _grabPoint.z = 0f;
             joint = player.gameObject.AddComponent<SpringJoint>();
             joint.autoConfigureConnectedAnchor = false;
             joint.connectedAnchor = _grabPoint;
+            joint.connectedBody = grappleSource;
 
             float toGrabPoint = Vector3.Distance(player.position, _grabPoint);
-            joint.maxDistance = toGrabPoint * 0.5f;
+            joint.maxDistance = toGrabPoint * 0.6f;
             joint.minDistance = toGrabPoint * 0.25f;
 
-            /**
+            /**/
             joint.spring = 10f;
-            joint.damper = 7f;
+            joint.damper = 3f;
             joint.massScale = 4.5f;
             /**/
 

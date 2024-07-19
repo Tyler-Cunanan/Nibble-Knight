@@ -5,59 +5,78 @@ using UnityEngine;
 public class Grapple_Gun : MonoBehaviour
 {
     private LineRenderer _lineRender;
-    private Vector3 _grabPoint;
     public LayerMask _grappable;
-    public Transform FirePoint, Cam, player;
-    // Start is called before the first frame update
-    public float maxDistance = 50f;
     private SpringJoint joint;
+    
+    [Header("Objects")]
+    public Transform FirePoint;
+    public Transform Cam;
+    public Transform player;
+    public float maxDistance = 100f;
+    private Vector3 _grabPoint;
 
-    void Start() {
+    void Awake() {
         _lineRender = GetComponent<LineRenderer>();
     }
 
-    void update() {
-        DrawRope();
-        Debug.Log("Hellow World");
+    void Update() {
+        //Debug.Log("Hello World");
         if(Input.GetMouseButtonDown(0)) {
+            /**/
             Debug.Log("click");
-            Debug.Log(Input.mousePosition);
+            /**/
             startGrapple();
         }
         else if(Input.GetMouseButtonUp(0)) {
+            Debug.Log("unclick");
             stopGrapple();
         }
     }
 
+    void LateUpdate() {
+        DrawRope();
+    }
+
     void DrawRope() {
+        if(!joint) return;
+
+        Debug.Log("Line");
+
         _lineRender.SetPosition(0, FirePoint.position);
         _lineRender.SetPosition(1, _grabPoint);
     }
 
     void startGrapple() {
         RaycastHit hit;
-        if (UnityEngine.Physics.Raycast(Cam.position, Cam.forward, out hit, maxDistance)) {
+        Ray directHit = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Debug.Log("pew");
+        //UnityEngine.Physics.Raycast(directHit, out hit, maxDistance, _grappable);
+        //Debug.Log(hit.point);
+        if (UnityEngine.Physics.Raycast(directHit, out hit, maxDistance, _grappable)) {
+            Debug.Log("catch");
             _grabPoint = hit.point;
+            _grabPoint.z = 0f;
             joint = player.gameObject.AddComponent<SpringJoint>();
             joint.autoConfigureConnectedAnchor = false;
             joint.connectedAnchor = _grabPoint;
 
-            float distance = Vector3.Distance(player.position, _grabPoint);
-
-
-            joint.maxDistance = distance * 0.8f;
-            joint.minDistance = distance * 0.25f;
+            float toGrabPoint = Vector3.Distance(player.position, _grabPoint);
+            joint.maxDistance = toGrabPoint * 0.5f;
+            joint.minDistance = toGrabPoint * 0.25f;
 
             /**
-            joint.spring = 1f;
-            joint.damper = 1f;
-            joint.massScale = 4.5f
+            joint.spring = 10f;
+            joint.damper = 7f;
+            joint.massScale = 4.5f;
             /**/
+
+            _lineRender.positionCount = 2;
         }
     }
-
+    /**/
     void stopGrapple() {
-
+        _lineRender.positionCount = 0;
+        Destroy(joint);
     }
-
+    /**/
 }

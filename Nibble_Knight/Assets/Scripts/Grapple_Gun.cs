@@ -14,7 +14,9 @@ public class Grapple_Gun : MonoBehaviour
     public Transform Cam;
     public Transform player;
     public Rigidbody grappleSource;
-    public float maxDistance = 100f;
+    public float minRope = 1f;
+    public float maxRope = 30f;
+    public float maxDistance = 50f;
     private Vector3 _grabPoint;
 
     void Awake() {
@@ -23,7 +25,9 @@ public class Grapple_Gun : MonoBehaviour
 
     void Update() {
         //Debug.Log("Hello World");
-
+        //add in range for grapple
+        //indicator/assist
+        //adjust mass
         if(Input.GetMouseButtonDown(0)) {
             /**/
             Debug.Log("click");
@@ -33,6 +37,15 @@ public class Grapple_Gun : MonoBehaviour
         else if(Input.GetMouseButtonUp(0)) {
             Debug.Log("unclick");
             stopGrapple();
+        }
+
+        if(Input.GetKey("w") && joint) {
+            if(joint.maxDistance < maxRope)
+               joint.maxDistance -= Time.deltaTime;
+        }
+        if(Input.GetKey("s") && joint) {
+            if(joint.maxDistance < minRope)
+                joint.maxDistance += Time.deltaTime;
         }
     }
 
@@ -68,17 +81,19 @@ public class Grapple_Gun : MonoBehaviour
             joint.connectedBody = grappleSource;
 
             float toGrabPoint = Vector3.Distance(player.position, _grabPoint);
-            joint.maxDistance = toGrabPoint * 0.6f;
-            joint.minDistance = toGrabPoint * 0.25f;
+            joint.maxDistance = toGrabPoint * 0.4f;
+            joint.minDistance = toGrabPoint * 0.3f;
 
             /**/
             joint.spring = 10f;
             joint.damper = 3f;
-            joint.massScale = 4.5f;
+            joint.massScale = 4f;
             /**/
 
             _lineRender.positionCount = 2;
         }
+
+        //function to stop the player streatching the rope to far
     }
     /**/
     void stopGrapple() {

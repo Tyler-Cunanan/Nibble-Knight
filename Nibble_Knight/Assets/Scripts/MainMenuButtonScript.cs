@@ -6,6 +6,21 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuButtonScript : MonoBehaviour
 {
+
+    public GameObject m_MainMenuButtonScript;
+    public GameObject m_Options;
+
+    public GameObject m_ExitScreen;
+    public AudioSource m_BackgroundMusicAudioSource;
+
+    void Start()
+    {
+        if(PlayerPrefs.HasKey("musicVolume"))
+        {
+            m_BackgroundMusicAudioSource.volume = PlayerPrefs.GetFloat("musicVolume");
+        }
+    }
+
     public void StartGame()
     {
         Debug.Log("Game Starting");
@@ -15,7 +30,9 @@ public class MainMenuButtonScript : MonoBehaviour
     public void Options()
     {
         Debug.Log("Options Pressed");
-        //TODO
+        PlayerPrefs.SetFloat("prevMusicVolume", m_BackgroundMusicAudioSource.volume);
+        m_MainMenuButtonScript.SetActive(false);
+        m_Options.SetActive(true);
     }
 
     public void Credits()
@@ -27,6 +44,8 @@ public class MainMenuButtonScript : MonoBehaviour
     public void Exit()
     {
         Debug.Log("Exit Pressed");
+        m_MainMenuButtonScript.SetActive(false);
+        m_ExitScreen.SetActive(true);
         Application.Quit();
     }
 }

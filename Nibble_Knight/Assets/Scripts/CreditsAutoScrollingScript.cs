@@ -9,7 +9,7 @@ public class CreditsAutoScrollingScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(transform.position.y < 1500)
+        if(transform.position.y < 3000)
         {
             transform.Translate(Vector3.up * m_Speed * Time.deltaTime);
         }

@@ -227,19 +227,74 @@ MonoBehaviour:
   m_text: 'Credits
 
 
+
     Game Producers
 
 
-    Game Designers
+    Michael
+
+
+
+    Game Supervisors
+
+
+    G-Dizzy
+
+
+    Suns
+
+
+
+    Game
+    Designers
+
+
+    Mystical Mist
+
 
 
     Music/SFX
 
 
+    Wit
+
+
+    Ty_Sound_Vaction
+
+
+
     Artist
 
 
-    Programmers'
+    Mike
+    (Character Artist)
+
+
+    G-Dizzy (Animator)
+
+
+    Aurora (Environment & UI Design)
+
+
+
+    Video
+
+
+    Silent
+    Hero
+
+
+
+    Programmers
+
+
+    Drooken
+
+
+    TakumiPanda
+
+
+    Tonka'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -272,7 +327,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 3
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -302,7 +357,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -427.26624, y: 343.96292, z: -424.07996, w: -1614.0131}
+  m_margin: {x: -427.26624, y: 343.96292, z: -424.07996, w: -2342.1663}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

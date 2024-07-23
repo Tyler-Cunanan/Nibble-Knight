@@ -70,3 +70,6 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+/Nibble_Knight/Library/Artifacts
+/Nibble_Knight/Library/Bee
+/Nibble_Knight/Library/Artifacts

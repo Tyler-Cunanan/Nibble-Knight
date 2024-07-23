@@ -5,16 +5,16 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638565420153565509
-    m_Hash: 280236670
+      ticks: 638573004102449337
+    m_Hash: 2190083524
   m_LockFileStatus:
     m_FilePath: C:/Users/User/Documents/Unity/Nibble-Knight/Nibble_Knight/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638565421525727352
-    m_Hash: 150666284
+      ticks: 638573004102459225
+    m_Hash: 776563695
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_LocalPackages:

@@ -81,13 +81,13 @@ public class Grapple_Gun : MonoBehaviour
             joint.connectedBody = grappleSource;
 
             float toGrabPoint = Vector3.Distance(player.position, _grabPoint);
-            joint.maxDistance = toGrabPoint * 0.4f;
-            joint.minDistance = toGrabPoint * 0.3f;
+            joint.maxDistance = toGrabPoint * 0.8f;
+            joint.minDistance = toGrabPoint * 0.25f;
 
             /**/
-            joint.spring = 10f;
-            joint.damper = 3f;
-            joint.massScale = 4f;
+            joint.spring = 3f;
+            joint.damper = 7f;
+            joint.massScale = 4.5f;
             /**/
 
             _lineRender.positionCount = 2;

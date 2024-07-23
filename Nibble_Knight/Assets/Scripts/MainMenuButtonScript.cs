@@ -24,7 +24,7 @@ public class MainMenuButtonScript : MonoBehaviour
     public void StartGame()
     {
         Debug.Log("Game Starting");
-        SceneManager.LoadScene("TestPlayfield");
+        SceneManager.LoadScene("TutorialScene");
     }
 
     public void Options()

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class NPCScript : MonoBehaviour
 {
@@ -9,6 +10,20 @@ public class NPCScript : MonoBehaviour
     public int m_numOfPointsNeeded = 0;
 
     public bool m_isFinished = false;
+
+    public GameObject m_TextBubble;
+
+    public GameObject m_DestructableObjective;
+
+    public TMP_Text m_Text;
+
+    public string m_QuestDialog;
+
+    public string m_NotEnoughDialog;
+
+    public string m_FinishedDialog;
+
+    public string m_TalkingDialog;
 
     // Start is called before the first frame update
     void Start()
@@ -19,36 +34,59 @@ public class NPCScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(m_TextBubble.activeInHierarchy && Input.GetKeyDown(KeyCode.Return))
+        {
+            m_TextBubble.SetActive(false);
+        }
     }
 
     void OnCollisionEnter(Collision collision)
     {
+        //Player collides with NPC
         if(collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Player ran into NPC.");
-            // Debug.Log(collision.gameObject.GetComponent<SwissInventoryScript>().GetCoinsCollected());
+            // Debug.Log("Player ran into NPC.");
+            //Is the quest already completed.
             if(m_isFinished)
             {
-                Debug.Log("Thank you again! You are our hero of the sewers!");
+                m_TextBubble.SetActive(true);
+                m_Text.text = m_FinishedDialog;
                 return;
             }
-            if(m_hasObjective)
+            //If NPC has an quest to give to the player.
+            else if(m_hasObjective && !m_TextBubble.activeInHierarchy)
             {
                 SwissInventoryScript m_inv = collision.gameObject.GetComponent<SwissInventoryScript>();
+                m_TextBubble.SetActive(true);
+                //Not enough coins collected.
                 if(m_inv.GetCoinsCollected() < m_numOfPointsNeeded)
                 {
-                    Debug.Log("Not enough coins. my friend. Please continue searching!");
-                    Debug.Log("Current coin count: " + m_inv.GetCoinsCollected() + " Needed coin count: " + m_numOfPointsNeeded);
+                    // Debug.Log(m_NotEnoughDialog);
+                    m_Text.text = m_NotEnoughDialog;
+                    // Debug.Log("Current coin count: " + m_inv.GetCoinsCollected() + " Needed coin count: " + m_numOfPointsNeeded);
                 }
+                //Complete the quest.
                 else 
                 {
                     m_inv.SubtractCoins(m_numOfPointsNeeded);
-                    Debug.Log("Thank you so much! With these coins we can now rebuild and help feed many more mice!");
-                    Debug.Log("New coin count: " + m_inv.GetCoinsCollected());
+                    m_Text.text = m_QuestDialog;
+                    // Debug.Log("New coin count: " + m_inv.GetCoinsCollected());
+                    if (m_DestructableObjective != null)
+                    {
+                        m_DestructableObjective.SetActive(false);
+                    }
                     m_isFinished = true;
+                    m_hasObjective = false;
                 }
+            }
+            //NPC has only a talking bubble.
+            else if(!m_hasObjective)
+            {
+                m_TextBubble.SetActive(true);
+                m_Text.text = m_TalkingDialog;
+                return;
             }
         }
     }
+    
 }

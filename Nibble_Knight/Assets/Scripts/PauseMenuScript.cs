@@ -6,6 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenuScript : MonoBehaviour
 {
+    public GameObject m_PauseMenuUI;
+
+    private bool m_isPaused = false;
+
     // Might Use Later
     // // Start is called before the first frame update
     // void Start()
@@ -13,14 +17,60 @@ public class PauseMenuScript : MonoBehaviour
         
     // }
 
-    // // Update is called once per frame
-    // void Update()
-    // {
-        
-    // }
+    // Update is called once per frame
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            if(m_isPaused)
+            {
+                Resume();
+            }
+            else 
+            {
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+                Pause();
+            }
+        }
+    }
+
+    public void Resume()
+    {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Confined;
+        m_PauseMenuUI.SetActive(false);
+        Time.timeScale = 1.0f;
+        m_isPaused = false;
+    }
+
+    void Pause()
+    {
+        m_PauseMenuUI.SetActive(true);
+        Time.timeScale = 0.0f;
+        m_isPaused = true;
+    }
+
+    public void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        //TODO: Have to press pause button to move again, check if this happens during alpha build.
+    }
+
+    public void Options()
+    {
+        Debug.Log("Options Pressed");
+        //TODO: Integrate volume controls similar to Main Menu UI Options.
+    }
 
     public void ReturnToMainMenu()
     {
         SceneManager.LoadScene("MainMenuScene");
+    }
+
+    public void Quit()
+    {
+        Debug.Log("Exit Pressed");
+        Application.Quit();
     }
 }

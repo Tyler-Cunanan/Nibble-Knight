@@ -53,6 +53,7 @@ public class PauseMenuScript : MonoBehaviour
 
     public void Restart()
     {
+        Time.timeScale = 1.0f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         //TODO: Have to press pause button to move again, check if this happens during alpha build.
     }

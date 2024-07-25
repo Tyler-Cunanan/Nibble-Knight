@@ -7,6 +7,10 @@ using UnityEngine.SceneManagement;
 public class PauseMenuScript : MonoBehaviour
 {
     public GameObject m_PauseMenuUI;
+    public GameObject m_Options;
+    public GameObject m_PauseMenuButtons;
+    public AudioSource m_BackgroundMusicAudioSource;
+
 
     private bool m_isPaused = false;
 
@@ -61,7 +65,9 @@ public class PauseMenuScript : MonoBehaviour
     public void Options()
     {
         Debug.Log("Options Pressed");
-        //TODO: Integrate volume controls similar to Main Menu UI Options.
+        PlayerPrefs.SetFloat("prevMusicVolume", m_BackgroundMusicAudioSource.volume);
+        m_PauseMenuButtons.SetActive(false);
+        m_Options.SetActive(true);
     }
 
     public void ReturnToMainMenu()

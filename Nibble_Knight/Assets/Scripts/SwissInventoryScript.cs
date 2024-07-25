@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class SwissInventoryScript : MonoBehaviour
 {
 
     private int coinsCollected = 0;
+
+    public TextMeshProUGUI m_NumOfCoinsText;
 
     // Start is called before the first frame update
     void Start()
@@ -14,11 +17,11 @@ public class SwissInventoryScript : MonoBehaviour
         PlayerPrefs.SetFloat("SwissCollectedCoins", coinsCollected);
     }
 
-    // // Update is called once per frame
-    // void Update()
-    // {
-        
-    // }
+    // Update is called once per frame
+    void Update()
+    {
+        m_NumOfCoinsText.text = coinsCollected.ToString();
+    }
 
     void OnCollisionEnter(Collision collision)
     {

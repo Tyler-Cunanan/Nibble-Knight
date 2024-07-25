@@ -6,11 +6,14 @@ using UnityEngine.SceneManagement;
 
 public class CreditsScript : MonoBehaviour
 {
-    // // Start is called before the first frame update
-    // void Start()
-    // {
-        
-    // }
+
+    public AudioSource m_BackgroundMusic;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        m_BackgroundMusic.volume = PlayerPrefs.GetFloat("musicVolume");
+    }
 
     // // Update is called once per frame
     // void Update()

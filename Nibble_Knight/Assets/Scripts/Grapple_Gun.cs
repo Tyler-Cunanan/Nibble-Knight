@@ -19,7 +19,7 @@ public class Grapple_Gun : MonoBehaviour
     public float maxRope = 10f;
     public float maxDistance = 50f;
     public float pullSpeed = 7f;
-    public GameObject currentOb;
+    private GameObject currentOb;
     private Vector3 _grabPoint;
     private int swap;
     private float toGrabPoint;
@@ -107,18 +107,18 @@ public class Grapple_Gun : MonoBehaviour
 
                 swap = 1;
                 currentOb = hit.collider.gameObject;
-                jointOb = hit.collider.gameObject.AddComponent<SpringJoint>();
+                jointOb = currentOb.AddComponent<SpringJoint>();
                 jointOb.autoConfigureConnectedAnchor = false;
-                jointOb.connectedAnchor = player.transform.position;
-                jointOb.connectedBody = hit.collider.attachedRigidbody;
+                jointOb.connectedAnchor = currentOb.transform.position;
+                jointOb.connectedBody = grappleSource;
 
                 toGrabPoint = Vector3.Distance(hit.collider.gameObject.transform.position, player.transform.position);
                 jointOb.maxDistance = toGrabPoint*.8f;
                 jointOb.minDistance = toGrabPoint*.25f;
 
-                joint.spring = 3f;
-                joint.damper = 7f;
-                joint.massScale = 4.5f;
+                jointOb.spring = 2f;
+                jointOb.damper = 7f;
+                jointOb.massScale = 4.5f;
             } else {
                 //grab anchor
                 Debug.Log("Anchor");
